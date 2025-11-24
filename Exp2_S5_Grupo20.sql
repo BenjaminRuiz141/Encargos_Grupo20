@@ -13,6 +13,7 @@ order by c.NUMRUN asc;
 select * from CLIENTE c;
 
 -- caso 2 --
+create table clientes_cupos_compra as
 select TO_CHAR(c.NUMRUN) || '-' ||TO_CHAR(UPPER(c.DVRUN)) as "RUT_CLIENTE",
        EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM c.FECHA_NACIMIENTO) as "EDAD",
        TO_CHAR(tc.CUPO_DISP_COMPRA, '$99G999G999') as "CUPO_DISPONIBLE_COMPRA",
@@ -32,9 +33,11 @@ order by RUT_CLIENTE desc;
                             -- al máximo cupo disponible del año anterior al actual <--."
 
                             -- subquery original, no retorna nada por que no existen datos 2024
-                            -- pero los datos coinciden con el año 2008 por alguna razon..
+                            -- pero los datos coinciden con el año 2008 por alguna razon...
 
                             -- (select MAX(tc_s.CUPO_DISP_COMPRA)
                             -- from CLIENTE c_s
                             -- join TARJETA_CLIENTE tc_s on c_s.NUMRUN = tc_s.NUMRUN
                             -- where EXTRACT(YEAR FROM c_s.FECHA_INSCRIPCION) = (EXTRACT(YEAR FROM SYSDATE) - 2)
+
+select * from clientes_cupos_compra;
